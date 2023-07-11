@@ -4,7 +4,7 @@ import ProductsPage from '../pages/productsPage';
 import { getComparator } from 'playwright-core/lib/utils';
 
 
-test.describe.only('tests describes', () => {
+test.describe('tests describes', () => {
 
 
     let loginPage: LoginPage;
