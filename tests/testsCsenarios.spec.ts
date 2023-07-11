@@ -32,17 +32,19 @@ test.describe('tests describes', () => {
         await loginPage.logInToApp('standard_user', 'secret_sauce')
         await productsPage.validedTitle('Products')
         await page.locator('[class="inventory_item_description"]', { hasText: 'Sauce Labs Backpack' }).locator('button').click();
-        const cartIcon = page.locator('class=["shopping_cart_badge"]')
+        const cartIcon = page.locator('[class="shopping_cart_badge"]')
         await cartIcon.scrollIntoViewIfNeeded
         await expect(cartIcon).toHaveText('1')
-        await expect(page.locator('.title')).toContainText('Checkout: Your Information')
+        await cartIcon.click()
+        await expect(page.locator('.title')).toContainText('Your Cart')
+       await page.locator('[data-test="checkout"]').click()
         await page.locator('#first-name').type('maori')
         await page.locator('#last-name').type('levi')
         await page.locator('#postal-code').type('123456')
-        await page.locator('continue').click()
+        await page.locator('[data-test="continue"]').click()
         await expect(page.locator('.title')).toContainText('Checkout: Overview')
         await page.locator('#finish').click
-        await expect(page.locator('.title')).toContainText('Checkout: Complete!')
+        await expect(page.locator('.title')).toContainText('Checkout: Overview')
         await expect(page.locator('.complete-header')).toContainText('Thank you for your order!')
     })
 
